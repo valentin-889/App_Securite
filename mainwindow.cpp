@@ -19,6 +19,34 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_btn_chif_aes_clicked()
+{
+
+
+}
+
+void MainWindow::on_btn_dechif_aes_clicked()
+{
+
+
+}
+
+
+void MainWindow::on_btn_chif_rsa_clicked()
+{
+
+
+}
+
+
+void MainWindow::on_btn_dechif_rsa_clicked()
+{
+
+    RsaGestion RSA;
+
+}
+
 void MainWindow::on_btn_sha_clicked()
 {
     HashGestion SHA;

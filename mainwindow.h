@@ -18,9 +18,16 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_btn_sha_clicked();
+
+    void on_btn_chif_aes_clicked();
+
+    void on_btn_chif_rsa_clicked();
+
+    void on_btn_dechif_aes_clicked();
+
+    void on_btn_dechif_rsa_clicked();
 
 private:
     Ui::MainWindow *ui;

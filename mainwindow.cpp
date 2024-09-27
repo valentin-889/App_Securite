@@ -52,3 +52,15 @@ void MainWindow::on_btn_sha_clicked()
     HashGestion SHA;
     cout << SHA.CalculateSHA256("c'est un chat") << endl;
 }
+
+void MainWindow::on_btn_chif_aes_2_clicked()
+{
+
+}
+
+
+void MainWindow::on_btn_selec_clicked()
+{
+
+}
+

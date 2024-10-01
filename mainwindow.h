@@ -24,6 +24,7 @@ public:
     ~MainWindow();
  std::string generateAESKey();
 
+
 private slots:
     void on_btn_clef_aes_clicked();
 

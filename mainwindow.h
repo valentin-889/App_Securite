@@ -23,7 +23,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
  std::string generateAESKey();
-
+    void chargementClefs(const std::string& publicKeyPath, const std::string& privateKeyPath);
+    void chiffrementFichier(const std::string& inputFilePath, const std::string& outputFilePath);
+    void dechiffrementFichier(const std::string& inputFilePath, const std::string& outputFilePath);
+    void genererClefs();
 
 private slots:
     void on_btn_clef_aes_clicked();

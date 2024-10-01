@@ -18,6 +18,29 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->setupUi(this);
+
+    QString buttonStyle =
+        "QPushButton {"
+        "   background-color: #007AFF;"
+        "   color: white;"
+        "   border-radius: 10px;"
+        "   padding: 10px;"
+        "   font-size: 16px;"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: #005AD5;"
+        "}";
+
+    // Application du style aux boutons
+    ui->btn_chif_aes->setStyleSheet(buttonStyle);
+    ui->btn_dechif_aes->setStyleSheet(buttonStyle);
+    ui->btn_chif_rsa->setStyleSheet(buttonStyle);
+    ui->btn_dechif_rsa->setStyleSheet(buttonStyle);
+    ui->btn_sha->setStyleSheet(buttonStyle);
+    ui->btn_chif_aes->setStyleSheet(buttonStyle);
+    ui->btn_chif_rsa->setStyleSheet(buttonStyle);
+
 }
 
 MainWindow::~MainWindow()
@@ -42,16 +65,19 @@ void MainWindow::on_btn_chif_aes_clicked()
     if (outputPath.isEmpty()) return;
 
     AesGestion AES;
+
     try {
+
         AES.EncryptFileAES256(inputPath.toStdString(), outputPath.toStdString());
         QMessageBox::information(this, "Succès", "Fichier chiffré avec succès.");
     } catch (const std::exception& e) {
-            }
+         QMessageBox::information(this, "Echec", "Erreur de fichier.");
+    }
 }
 
 void MainWindow::on_btn_dechif_aes_clicked()
 {
-        QString inputPath = QFileDialog::getOpenFileName(this, "Sélectionner le fichier chiffré", "", "Tous les fichiers (*.*)");
+    QString inputPath = QFileDialog::getOpenFileName(this, "Sélectionner le fichier chiffré", "", "Tous les fichiers (*.*)");
     if (inputPath.isEmpty()) return;
 
     QString outputPath = QFileDialog::getSaveFileName(this, "Enregistrer le fichier déchiffré", "", "Tous les fichiers (*.*)");
@@ -62,21 +88,19 @@ void MainWindow::on_btn_dechif_aes_clicked()
         AES.DecryptFileAES256(inputPath.toStdString(), outputPath.toStdString());
         QMessageBox::information(this, "Succès", "Fichier déchiffré avec succès.");
     } catch (const std::exception& e) {
+        QMessageBox::information(this, "Echec", "Erreur de fichierdechiffrement");
     }
 
 
 }
 
-void MainWindow::on_btn_chif_rsa_clicked()
-{
+void MainWindow::on_btn_chif_rsa_clicked() {
 
 }
 
 
 
-
-void MainWindow::on_btn_dechif_rsa_clicked()
-{
+void MainWindow::on_btn_dechif_rsa_clicked() {
 
 }
 
@@ -135,7 +159,9 @@ void MainWindow::on_btn_clef_aes_clicked()
     QMessageBox::information(this, "Succès", "Clé générée.");
 }
 
-void MainWindow::on_btn_clef_rsa_clicked()
-{
+void MainWindow::on_btn_clef_rsa_clicked() {
+
+
+
 
 }

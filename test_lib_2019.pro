@@ -44,3 +44,8 @@ win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../Librairies/
 else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../Librairies/CryptoCiel/x64/debug/libcryptoCielTest.a
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../Librairies/CryptoCiel/x64/release/cryptoCielTest.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../Librairies/CryptoCiel/x64/debug/cryptoCielTest.lib
+
+RESOURCES += \
+    image_background.qrc
+
+DISTFILES +=

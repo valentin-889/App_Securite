@@ -24,29 +24,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btn_chif_aes_clicked()
 {
-    // Implémentation à ajouter
+
 }
 
 void MainWindow::on_btn_dechif_aes_clicked()
 {
-    // Implémentation à ajouter
+
 }
 
 void MainWindow::on_btn_chif_rsa_clicked()
 {
-    // Implémentation à ajouter
+
 }
 
 void MainWindow::on_btn_dechif_rsa_clicked()
 {
     RsaGestion RSA;
-    // Implémentation à ajouter
+
 }
 
 void MainWindow::on_btn_sha_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Sélectionner un fichier", "", "Tous les fichiers (*.*)");
-    if (filePath.isEmpty()) return;
+
 
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -71,3 +71,15 @@ void MainWindow::on_btn_sha_clicked()
 
     }
 }
+
+void MainWindow::on_btn_clef_aes_clicked()
+{
+
+}
+
+
+void MainWindow::on_btn_clef_rsa_clicked()
+{
+
+}
+

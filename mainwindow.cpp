@@ -7,6 +7,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFile>
+#include <QTextStream>
+
+#include <string>
 
 using namespace std;
 
@@ -24,13 +27,34 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btn_chif_aes_clicked()
 {
+    AesGestion AES;
 
-}
+
+    QString inputPath = QFileDialog::getOpenFileName(this, "Sélectionner le fichier à chiffrer", "", "Tous les fichiers (*.*)");
+    if (inputPath.isEmpty()) return;
+
+
+    QString outputPath = QFileDialog::getSaveFileName(this, "Enregistrer le fichier chiffré", "", "Tous les fichiers (*.*)");
+    if (outputPath.isEmpty()) return;
+
+    }
+
 
 void MainWindow::on_btn_dechif_aes_clicked()
 {
+    AesGestion AES;
+
+
+    QString inputPath = QFileDialog::getOpenFileName(this, "Sélectionner le fichier chiffré", "", "Tous les fichiers (*.*)");
+    if (inputPath.isEmpty()) return;
+
+
+    QString outputPath = QFileDialog::getSaveFileName(this, "Enregistrer le fichier déchiffré", "", "Tous les fichiers (*.*)");
+    if (outputPath.isEmpty()) return;
+
 
 }
+
 
 void MainWindow::on_btn_chif_rsa_clicked()
 {
@@ -39,9 +63,11 @@ void MainWindow::on_btn_chif_rsa_clicked()
 
 void MainWindow::on_btn_dechif_rsa_clicked()
 {
-    RsaGestion RSA;
 
 }
+
+
+
 
 void MainWindow::on_btn_sha_clicked()
 {
@@ -72,10 +98,12 @@ void MainWindow::on_btn_sha_clicked()
     }
 }
 
+
 void MainWindow::on_btn_clef_aes_clicked()
 {
 
 }
+
 
 
 void MainWindow::on_btn_clef_rsa_clicked()

@@ -22,7 +22,12 @@ public slots:
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+ std::string generateAESKey();
 
+private slots:
+    void on_btn_clef_aes_clicked();
+
+    void on_btn_clef_rsa_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -19,14 +19,12 @@ public slots:
     void on_btn_chif_rsa_clicked();
     void on_btn_dechif_rsa_clicked();
     void on_btn_sha_clicked();
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
  std::string generateAESKey();
-    void chargementClefs(const std::string& publicKeyPath, const std::string& privateKeyPath);
-    void chiffrementFichier(const std::string& inputFilePath, const std::string& outputFilePath);
-    void dechiffrementFichier(const std::string& inputFilePath, const std::string& outputFilePath);
-    void genererClefs();
+   void generationClefs(const std::string& publicKey, const std::string& privateKey);
 
 private slots:
     void on_btn_clef_aes_clicked();

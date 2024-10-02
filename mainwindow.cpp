@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+
     ui->setupUi(this);
 
     QString buttonStyle =
@@ -40,7 +40,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_sha->setStyleSheet(buttonStyle);
     ui->btn_chif_aes->setStyleSheet(buttonStyle);
     ui->btn_chif_rsa->setStyleSheet(buttonStyle);
-
+    ui->btn_clef_rsa->setStyleSheet(buttonStyle);
+    ui->btn_clef_aes->setStyleSheet(buttonStyle);
 }
 
 MainWindow::~MainWindow()
@@ -90,22 +91,50 @@ void MainWindow::on_btn_dechif_aes_clicked()
     } catch (const std::exception& e) {
         QMessageBox::information(this, "Echec", "Erreur de fichierdechiffrement");
     }
-
-
-}
-
-void MainWindow::on_btn_chif_rsa_clicked() {
-
 }
 
 
+void MainWindow::on_btn_chif_rsa_clicked()
+{
+    QString publicKey = QFileDialog::getOpenFileName(this, "Sélectionner la clé publique RSA", "", "Fichiers PEM (*.pem)");
+    if (publicKey.isEmpty()) return;
 
-void MainWindow::on_btn_dechif_rsa_clicked() {
+    QString inputPath = QFileDialog::getOpenFileName(this, "Sélectionner le fichier à chiffrer", "", "Tous les fichiers (*.*)");
+    if (inputPath.isEmpty()) return;
 
+    QString outputPath = QFileDialog::getSaveFileName(this, "Enregistrer le fichier chiffré", "", "Tous les fichiers (*.*)");
+    if (outputPath.isEmpty()) return;
+
+    RsaGestion RSA;
+    try {
+        RSA.chargementClefs(publicKey.toStdString(), "");
+         void chiffrementFichier(const std::string& inputPath, const std::string& outputPath);
+        QMessageBox::information(this, "Succès", "Fichier chiffré avec succès.");
+    } catch (const std::exception& e) {
+        QMessageBox::critical(this, "Erreur", "Échec du chiffrement: ");
+    }
 }
 
+void MainWindow::on_btn_dechif_rsa_clicked()
+{
+    QString privateKey = QFileDialog::getOpenFileName(this, "Sélectionner la clé privée RSA", "", "Tous les fichiers (*.*)");
+    if (privateKey.isEmpty()) return;
 
+    QString inputPath = QFileDialog::getOpenFileName(this, "Sélectionner le fichier chiffré", "", "Tous les fichiers (*.*)");
+    if (inputPath.isEmpty()) return;
 
+    QString outputPath = QFileDialog::getSaveFileName(this, "Enregistrer le fichier déchiffré", "", "Tous les fichiers (*.*)");
+    if (outputPath.isEmpty()) return;
+
+    RsaGestion RSA;
+    try {
+        RSA.chargementClefs("", privateKey.toStdString());
+        void déchiffrementFichier(const std::string& inputPath, const std::string& outputPath);
+        QMessageBox::information(this, "Succès", "Fichier déchiffré avec succès.");
+    } catch (const std::exception& e) {
+        QMessageBox::critical(this, "Erreur", "Échec du déchiffrement: ");
+    }
+}
 
 
 
@@ -132,11 +161,9 @@ void MainWindow::on_btn_sha_clicked()
         cout << "Hash SHA-256 du fichier : " << hash.toStdString() << endl;
         QMessageBox::information(this, "Hash SHA-256", "Le hash SHA-256 du fichier est: " + hash);
     } catch (const exception& e) {
-
+     QMessageBox::information(this, "Hash SHA-256", "erreur de hashage: ");
     }
 }
-
-
 
 
 
@@ -159,9 +186,20 @@ void MainWindow::on_btn_clef_aes_clicked()
     QMessageBox::information(this, "Succès", "Clé générée.");
 }
 
-void MainWindow::on_btn_clef_rsa_clicked() {
 
+void MainWindow::on_btn_clef_rsa_clicked()
+{
+    QString publicKey = QFileDialog::getSaveFileName(this, "Enregistrer la clé publique RSA", "", "Tous les fichiers (*.*)");
+    if (publicKey.isEmpty()) return;
 
+    QString privateKey = QFileDialog::getSaveFileName(this, "Enregistrer la clé privée RSA", "", "Tous les fichiers (*.*)");
+    if (privateKey.isEmpty()) return;
 
-
+    RsaGestion RSA;
+    try {
+        void generationClefs(const std::string& publicKey, const std::string& privateKey);
+        QMessageBox::information(this, "Succès", "Paire de clés RSA générée avec succès.");
+    } catch (const std::exception& e) {
+        QMessageBox::critical(this, "Erreur", "Échec de la génération des clés ");
+    }
 }

@@ -128,8 +128,8 @@ void MainWindow::on_btn_dechif_rsa_clicked()
 
     RsaGestion RSA;
     try {
-        RSA.chargementClefsPublic(privateKey.toStdString() );
-        RSA.dechiffrementFichier(outputPath.toStdString(),inputPath.toStdString(),2048 );
+        RSA.chargementClefsPrivee(privateKey.toStdString());
+        RSA.dechiffrementFichier(inputPath.toStdString(), outputPath.toStdString(), 2048);
         QMessageBox::information(this, "Succès", "Fichier déchiffré avec succès.");
     } catch (const std::exception& e) {
         QMessageBox::critical(this, "Erreur", "Échec du déchiffrement: ");

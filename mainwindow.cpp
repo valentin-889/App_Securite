@@ -96,7 +96,7 @@ void MainWindow::on_btn_dechif_aes_clicked()
 
 void MainWindow::on_btn_chif_rsa_clicked()
 {
-    QString publicKey = QFileDialog::getOpenFileName(this, "Sélectionner la clé publique RSA", "", "Fichiers PEM (*.pem)");
+    QString publicKey = QFileDialog::getOpenFileName(this, "Sélectionner la clé publique RSA", "", "Tous les fichiers (*.*)");
     if (publicKey.isEmpty()) return;
 
     QString inputPath = QFileDialog::getOpenFileName(this, "Sélectionner le fichier à chiffrer", "", "Tous les fichiers (*.*)");
@@ -108,10 +108,10 @@ void MainWindow::on_btn_chif_rsa_clicked()
     RsaGestion RSA;
     try {
         RSA.chargementClefs(publicKey.toStdString(), "");
-         void chiffrementFichier(const std::string& inputPath, const std::string& outputPath);
+        RSA.chiffrementRsa(inputPath.toStdString());RSA.chiffrementRsa(outputPath.toStdString());
         QMessageBox::information(this, "Succès", "Fichier chiffré avec succès.");
     } catch (const std::exception& e) {
-        QMessageBox::critical(this, "Erreur", "Échec du chiffrement: ");
+        QMessageBox::critical(this, "Erreur", QString("Échec du chiffrement: %1").arg(e.what()));
     }
 }
 
@@ -129,7 +129,9 @@ void MainWindow::on_btn_dechif_rsa_clicked()
     RsaGestion RSA;
     try {
         RSA.chargementClefs("", privateKey.toStdString());
-        void déchiffrementFichier(const std::string& inputPath, const std::string& outputPath);
+        RSA.dechiffrementRsa(inputPath.toStdString());
+        RSA.dechiffrementRsa(outputPath.toStdString());
+
         QMessageBox::information(this, "Succès", "Fichier déchiffré avec succès.");
     } catch (const std::exception& e) {
         QMessageBox::critical(this, "Erreur", "Échec du déchiffrement: ");
@@ -189,17 +191,19 @@ void MainWindow::on_btn_clef_aes_clicked()
 
 void MainWindow::on_btn_clef_rsa_clicked()
 {
-    QString publicKey = QFileDialog::getSaveFileName(this, "Enregistrer la clé publique RSA", "", "Tous les fichiers (*.*)");
-    if (publicKey.isEmpty()) return;
+    QString publicKeyFileName = QFileDialog::getSaveFileName(this, "Enregistrer la clé publique RSA", "", "Tous les fichiers (*.*)");
+    if (publicKeyFileName.isEmpty()) return;
 
-    QString privateKey = QFileDialog::getSaveFileName(this, "Enregistrer la clé privée RSA", "", "Tous les fichiers (*.*)");
-    if (privateKey.isEmpty()) return;
+    QString privateKeyFileName = QFileDialog::getSaveFileName(this, "Enregistrer la clé privée RSA", "", "Tous les fichiers (*.*)");
+    if (privateKeyFileName.isEmpty()) return;
 
     RsaGestion RSA;
+
     try {
-        void generationClefs(const std::string& publicKey, const std::string& privateKey);
+        RSA.generationClef(publicKeyFileName.toStdString(), privateKeyFileName.toStdString(), 2048);
         QMessageBox::information(this, "Succès", "Paire de clés RSA générée avec succès.");
     } catch (const std::exception& e) {
-        QMessageBox::critical(this, "Erreur", "Échec de la génération des clés ");
+        QMessageBox::critical(this, "Erreur", "Échec de la génération des clés: " + QString::fromStdString(e.what()));
     }
 }
+

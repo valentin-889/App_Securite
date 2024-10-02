@@ -103,12 +103,12 @@ void MainWindow::on_btn_chif_rsa_clicked()
     if (inputPath.isEmpty()) return;
 
     QString outputPath = QFileDialog::getSaveFileName(this, "Enregistrer le fichier chiffré", "", "Tous les fichiers (*.*)");
-    if (outputPath.isEmpty()) return;
+   // if (outputPath.isEmpty()) return;
 
     RsaGestion RSA;
     try {
-        RSA.chargementClefs(publicKey.toStdString(), "");
-        RSA.chiffrementRsa(inputPath.toStdString());RSA.chiffrementRsa(outputPath.toStdString());
+        RSA.chargementClefsPublic(publicKey.toStdString() );
+        RSA.chiffrementFichier(inputPath.toStdString(),outputPath.toStdString(),2048 );
         QMessageBox::information(this, "Succès", "Fichier chiffré avec succès.");
     } catch (const std::exception& e) {
         QMessageBox::critical(this, "Erreur", QString("Échec du chiffrement: %1").arg(e.what()));
@@ -124,14 +124,12 @@ void MainWindow::on_btn_dechif_rsa_clicked()
     if (inputPath.isEmpty()) return;
 
     QString outputPath = QFileDialog::getSaveFileName(this, "Enregistrer le fichier déchiffré", "", "Tous les fichiers (*.*)");
-    if (outputPath.isEmpty()) return;
+   // if (outputPath.isEmpty()) return;
 
     RsaGestion RSA;
     try {
-        RSA.chargementClefs("", privateKey.toStdString());
-        RSA.dechiffrementRsa(inputPath.toStdString());
-        RSA.dechiffrementRsa(outputPath.toStdString());
-
+        RSA.chargementClefsPublic(privateKey.toStdString() );
+        RSA.dechiffrementFichier(outputPath.toStdString(),inputPath.toStdString(),2048 );
         QMessageBox::information(this, "Succès", "Fichier déchiffré avec succès.");
     } catch (const std::exception& e) {
         QMessageBox::critical(this, "Erreur", "Échec du déchiffrement: ");

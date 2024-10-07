@@ -1,7 +1,5 @@
 /**
- * @file mainwindow.h
- * @brief Déclaration de la classe MainWindow.
- * 
+ *Déclaration de la classe MainWindow.
  * Cette classe gère l'interface utilisateur et les actions liées au chiffrement/déchiffrement
  * AES et RSA, ainsi que la génération de clés.
  */
